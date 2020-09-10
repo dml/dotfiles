@@ -1,0 +1,86 @@
+{
+  "coc.preferences.messageLevel": "error",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "suggest.echodocSupport": true,
+  "suggest.maxCompleteItemCount": 20,
+  "coc.preferences.formatOnType": true,
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "solargraph.bundlerPath": "/Users/dml/.rbenv/shims/bundle",
+  "solargraph.useBundler": true,
+  "solargraph.diagnostics": true,
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.hover": true,
+  "solargraph.definitions": true,
+  "solargraph.completion": true,
+  "solargraph.rename": true,
+  "solargraph.symbols": true,
+  "solargraph.references": true,
+  "python.jediEnabled": false,
+  "python.sortImports.path": "/Users/dml/.pyenv/shims/isort",
+  "python.sortImports.args": [
+    "--atomic"
+  ],
+  "eslint.autoFixOnSave": true,
+  "yaml.validate": true,
+  "yaml.completion": true,
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": false,
+  "yaml.customTags": [
+    "!Ref",
+    "!GetAtt",
+    "!ImportValue"
+  ],
+  "yaml.trace.server": "verbose",
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "•",
+  "diagnostic.infoSign": "•",
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json"
+      ],
+      "filetypes": [
+        "c",
+        "cc",
+        "cpp",
+        "c++",
+        "objc",
+        "objcpp"
+      ]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "tf",
+        "terraform"
+      ],
+      "initializationOptions": {}
+    }
+  }
+}
