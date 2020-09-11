@@ -64,10 +64,11 @@ let g:session_command_aliases = 1
 
 " IndentLine
 let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = 0
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
 let g:indentLine_char = '┆'
 let g:indentLine_faster = 1
-
+let g:indentLine_fileTypeExclude = ["nerdtree", "markdown", "json"]
 
 
 """ Shortcuts
@@ -81,6 +82,15 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <leader><space> :noh<CR>
+
+nmap <silent> + :bnext<CR>
+nmap <silent> _ :bprev<CR>
 
 " NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -98,9 +108,14 @@ let g:NERDTreeShowBookmarks=0
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-nnoremap <silent> <F2> :NERDTreeFind<CR>
+" nnoremap <silent> <F3> :NERDTreeToggle<CR>
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>r :NERDTreeFind<CR>
 
 " CoC
 

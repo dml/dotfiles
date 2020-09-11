@@ -35,6 +35,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ln -s $PWD/vim/vimrc $HOME/.vim/vimrc
+ln -s $PWD/vim/gvimrc $HOME/.vim/gvimrc
 
 vim +PlugInstall +qall
 

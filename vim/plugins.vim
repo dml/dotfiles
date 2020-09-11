@@ -39,6 +39,9 @@ Plug 'Yggdroot/indentLine'
 " File explorer
 Plug 'preservim/nerdtree'
 
+" airline the status bar
+Plug 'vim-airline/vim-airline'
+
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 

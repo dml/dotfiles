@@ -1,0 +1,33 @@
+if has("gui_macvim")
+  set guifont=mononoki\ Bold\ Nerd\ Font\ Complete:h16
+
+  macmenu File.Print key=<nop>
+  nnoremap <D-p> :<C-u>FZF<CR>
+
+  nnoremap <D-M-right> :tabnext<cr>
+  nnoremap <D-M-left> :tabprev<cr>
+
+  nmap <D-/> :Commentary<CR>
+  vmap <D-/> :Commentary<CR>
+
+  " set guioptions-=rL
+  set guioptions=
+  set ambiwidth=double
+
+  " autosave all files on focus leave
+  autocmd BufLeave,FocusLost * silent! wall
+end
+
+if !has('gui_running')
+
+  set t_Co=256
+endif
+
+if has('title') && (has('gui_running') || &title)
+  set titlestring=
+  set titlestring+=%f\                                              " file name
+  " set titlestring+=%h%m%r%w                                         " flags
+  " set titlestring+=-\ %{v:progname}                               " program name
+  " set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
+endif
+
