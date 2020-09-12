@@ -20,6 +20,11 @@ set linebreak
 set showbreak=+++
 set textwidth=80
 
+" change split direction
+set splitright
+set splitbelow
+
+
 "" Fix backspace indent
 set backspace=indent,eol,start
 
@@ -39,7 +44,7 @@ set autoindent
 set nofoldenable
 set mouse=a mousemodel=popup_setpos
 
-"" Map leader to ,
+"" Map leader to space
 let mapleader=' '
 
 "" Enable hidden buffers
@@ -56,6 +61,9 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
 
+set t_Co=256
+
+
 " session management
 let g:session_directory = "~/./session"
 let g:session_autoload = "yes"
@@ -64,9 +72,6 @@ let g:session_command_aliases = 1
 
 " IndentLine
 let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = 'inc'
-let g:indentLine_conceallevel = 2
-let g:indentLine_char = '┆'
 let g:indentLine_faster = 1
 let g:indentLine_fileTypeExclude = ["nerdtree", "markdown", "json"]
 
@@ -89,8 +94,23 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nmap <leader><space> :noh<CR>
 
+" bufer navigation
 nmap <silent> + :bnext<CR>
 nmap <silent> _ :bprev<CR>
+nmap <silent> <leader>c :bd<CR>
+
+nmap YY "+y<CR>
+nmap <leader>p "+gP<CR>
+nmap XX "+x<CR>
+
+nmap <leader>v :vsp $MYVIMRC<cr>
+nmap <leader>V :source $MYVIMRC<cr>
+
+" terminal emulation
+nnoremap <silent> <leader>sh :terminal<CR>
+
+" FZF
+" let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'horizontal' } }
 
 " NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -143,14 +163,24 @@ let g:coc_global_extensions = [
 " diagnostics appear/become resolved.
 set signcolumn=number
 
+" the autocomplete popup size
+" set pumwidth=60
+" set pumheight=20
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+\ pumvisible() ? coc#_select_confirm() :
+\ coc#expandableOrJumpable() ? 
+\ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+\ <SID>check_back_space() ? "\<TAB>" :
+\ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1

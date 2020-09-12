@@ -1,4 +1,5 @@
 {
+  "signature.target": "float",
   "coc.preferences.messageLevel": "error",
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
