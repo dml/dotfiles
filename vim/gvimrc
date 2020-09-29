@@ -1,5 +1,5 @@
 if has("gui_macvim")
-  set guifont=mononoki\ Bold\ Nerd\ Font\ Complete:h16
+  set guifont=mononoki\ Bold\ Nerd\ Font\ Complete:h15
 
   macmenu File.Print key=<nop>
   nnoremap <D-p> :<C-u>FZF<CR>
@@ -11,6 +11,7 @@ if has("gui_macvim")
   vmap <D-/> :Commentary<CR>
 
   " set guioptions-=rL
+  " set guioptions=+e " enabled gui tabs
   set guioptions=
   set ambiwidth=double
 
@@ -19,7 +20,6 @@ if has("gui_macvim")
 end
 
 if !has('gui_running')
-
   set t_Co=256
 endif
 
@@ -30,4 +30,3 @@ if has('title') && (has('gui_running') || &title)
   " set titlestring+=-\ %{v:progname}                               " program name
   " set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
 endif
-

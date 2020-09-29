@@ -1,10 +1,126 @@
+"""""""""""""""
+"   PLUGINS   "
+"""""""""""""""
+
+let vimplugpath=expand('~/./autoload/plug.vim')
+let curl=expand('curl')
+
+if !filereadable(vimplugpath)
+  if !executable(curl)
+    echoerr "vim-plug is not installed. Reason: curl does not exist."
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  let plugurl = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  silent exec "!"curl " -fLo " . shellescape(vimplugpath) . " --create-dirs " . plugurl
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+
+
+call plug#begin('~/.vim/plugged')
+
+" universal modert vim settings
+Plug 'tpope/vim-sensible'
+
+" Colorscheme
+Plug 'ayu-theme/ayu-vim'
+" Plug 'morhetz/gruvbox'
+
+" FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Vim Session
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+
+" supporting wrapping
+Plug 'tpope/vim-surround'
+
+" Supporting comments
+Plug 'tpope/vim-commentary'
+
+" support case changes
+Plug 'tpope/vim-abolish'
+
+" Indent line
+Plug 'Yggdroot/indentLine'
+
+" Trailing whitespace highlighting & automatic fixing
+Plug 'ntpeters/vim-better-whitespace'
+
+" File explorer
+Plug 'preservim/nerdtree'
+
+" replace occurrences in many buffers being aware of the context
+Plug 'pelodelfuego/vim-swoop'
+
+" airline the status bar
+Plug 'vim-airline/vim-airline'
+
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
+
+" syntax highlighting support
+Plug 'sheerun/vim-polyglot'
+
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" ruby
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ecomba/vim-ruby-refactoring', {'tag': 'main'}
+Plug 'vim-test/vim-test'
+
+" go
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+" html
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gko/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
+
+" javascript
+Plug 'jelera/vim-javascript-syntax'
+Plug 'kchmck/vim-coffee-script'
+Plug 'peitalin/vim-jsx-typescript'
+
+" python
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+
+" markdown
+Plug 'plasticboy/vim-markdown'
+
+" ripgrep
+Plug 'jremmen/vim-ripgrep'
+
+call plug#end()
+
+
+
+""""""""""""""""
+"   SETTINGS   "
+""""""""""""""""
+
 " Enable modern features
-set nocompatible 
+set nocompatible
 syntax on
 filetype plugin indent on
-
-""" Loading plugins
-source ~/.vim/plugins.vim
 
 "" Encoding
 set encoding=utf-8
@@ -57,23 +173,45 @@ set ignorecase
 set smartcase
 
 " Editor theme
-set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
-
 set t_Co=256
+set termguicolors
+" let ayucolor="light"  " for light version of theme
+let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
+" colorscheme gruvbox
+
+""" vim-airline
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_splits = 0 " disable buffers toggle on the tabline
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#fnamecollapse = 1
 
 
-" session management
+""" session management
 let g:session_directory = "~/./session"
 let g:session_autoload = "yes"
 let g:session_autosave = "yes"
 let g:session_command_aliases = 1
 
-" IndentLine
+""" IndentLine
 let g:indentLine_enabled = 1
 let g:indentLine_faster = 1
 let g:indentLine_fileTypeExclude = ["nerdtree", "markdown", "json"]
+
+
+""" vim-better-whitespace
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+let g:strip_whitespace_confirm=0
+let g:strip_whitelines_at_eof=1
 
 
 """ Shortcuts
@@ -97,7 +235,11 @@ nmap <leader><space> :noh<CR>
 " bufer navigation
 nmap <silent> + :bnext<CR>
 nmap <silent> _ :bprev<CR>
-nmap <silent> <leader>c :bd<CR>
+nmap <silent> <leader>q :bdelete<CR>
+
+" quickfix navigation
+nmap <silent> <leader>co :copen<CR>
+nmap <silent> <leader>cc :cclose<CR>
 
 nmap YY "+y<CR>
 nmap <leader>p "+gP<CR>
@@ -111,6 +253,13 @@ nnoremap <silent> <leader>sh :terminal<CR>
 
 " FZF
 " let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'horizontal' } }
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>t :Files<CR>
+
+" vim-fugitive
+nmap <leader>gj :diffget \\3<cr>
+nmap <leader>gf :diffget \\2<cr>
+nmap <leader>gs :G<cr>
 
 " NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -137,10 +286,20 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>r :NERDTreeFind<CR>
 
+" vim-rails / vim-projectionist
+nnoremap <silent> <leader>A  :A<CR>
+nnoremap <silent> <leader>AV :AV<CR>
+nnoremap <silent> <leader>AS :AS<CR>
+nnoremap <silent> <leader>AT :AT<CR>
+
+nnoremap <silent> <leader>R  :R<CR>
+nnoremap <silent> <leader>RV :RV<CR>
+nnoremap <silent> <leader>RS :RS<CR>
+nnoremap <silent> <leader>RT :RT<CR>
+
 " CoC
 
 let g:coc_global_extensions = [
-\ 'coc-cfn-lint',
 \ 'coc-clangd',
 \ 'coc-css',
 \ 'coc-cssmodules',
@@ -159,9 +318,10 @@ let g:coc_global_extensions = [
 \ 'coc-yaml',
 \ ]
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=number
+""" vim-gitgutter
+set signcolumn=yes
+let g:gitgutter_sign_allow_clobber = 1
+let g:gitgutter_set_sign_backgrounds = 1
 
 " the autocomplete popup size
 " set pumwidth=60
@@ -177,7 +337,7 @@ set signcolumn=number
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? coc#_select_confirm() :
-\ coc#expandableOrJumpable() ? 
+\ coc#expandableOrJumpable() ?
 \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 \ <SID>check_back_space() ? "\<TAB>" :
 \ coc#refresh()
@@ -225,8 +385,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format)
+nmap <leader>f  <Plug>(coc-format)
+xmap <leader>F  <Plug>(coc-format-selected)
+nmap <leader>F  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!

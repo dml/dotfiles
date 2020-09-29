@@ -6,9 +6,11 @@ echo $PWD
 
 packages=(
   "ctags"
+  "direnv"
   "fzf"
   "git"
   "node"
+  "ripgrep"
   "vim"
   "z"
   "zsh"
@@ -26,11 +28,11 @@ done
 
 echo "Install brew cask packages"
 brew tap homebrew/cask-fonts
-for i in "${casks[@]}" 
+for i in "${casks[@]}"
 do
   brew cask install ${i}
 done
- 
+
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 

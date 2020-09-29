@@ -1,0 +1,49 @@
+[user]
+  email = dmitry.larkin@gmail.com
+  name = Dmitry Larkin
+[credential]
+  helper = osxkeychain
+[grep]
+  linenumber = true
+[color]
+  ui = auto
+  diff = auto
+  branch = auto
+  status = auto
+[core]
+  editor = vim
+  excludesfile = /Users/dml/.gitignore
+  pager = less -F -X
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  dc = diff --cached
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+  ign = ls-files -o -i --exclude-standard
+  undo-commit = reset --soft HEAD^
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  random = !git commit -m \"$(curl -s http://whatthecommit.com/index.txt)\"
+	please = push --force-with-lease
+[filter "media"]
+  clean = git media clean %f
+  smudge = git media smudge %f
+  required = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+[merge]
+  tool = vim
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+[pull]
+	ff = only
