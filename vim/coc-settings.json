@@ -1,11 +1,6 @@
 {
   "signature.target": "float",
   "coc.preferences.messageLevel": "error",
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "go.goplsOptions": {
     "completeUnimported": true
   },
@@ -26,7 +21,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "solargraph.bundlerPath": "/Users/dml/.rbenv/shims/bundle",
+  "solargraph.bundlerPath": "/Users/dml/.asdf/shims/bundle",
   "solargraph.useBundler": true,
   "solargraph.diagnostics": true,
   "solargraph.autoformat": true,
@@ -38,10 +33,14 @@
   "solargraph.symbols": true,
   "solargraph.references": true,
   "python.jediEnabled": false,
-  "python.sortImports.path": "/Users/dml/.pyenv/shims/isort",
+  "python.sortImports.path": "/Users/dml/.asdf/shims/isort",
   "python.sortImports.args": [
     "--atomic"
   ],
+  "markdownlint.config": {
+    "default": true,
+    "line_length": false
+  },
   "eslint.autoFixOnSave": true,
   "yaml.validate": true,
   "yaml.completion": true,

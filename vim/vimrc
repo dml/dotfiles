@@ -44,8 +44,14 @@ Plug 'tpope/vim-surround'
 " Supporting comments
 Plug 'tpope/vim-commentary'
 
+" Supporting async tests and builds
+Plug 'tpope/vim-dispatch'
+
 " support case changes
 Plug 'tpope/vim-abolish'
+
+" move around
+Plug 'matze/vim-move'
 
 " Indent line
 Plug 'Yggdroot/indentLine'
@@ -66,6 +72,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 
+" multi cursor support
+Plug 'terryma/vim-multiple-cursors'
+
+" switch
+Plug 'andrewradev/switch.vim'
+
+" Dash support
+Plug 'rizzatti/dash.vim'
+
 " syntax highlighting support
 Plug 'sheerun/vim-polyglot'
 
@@ -77,6 +92,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-bundler'
 Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring', {'tag': 'main'}
 Plug 'vim-test/vim-test'
@@ -96,7 +112,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'peitalin/vim-jsx-typescript'
 
 " python
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 " typescript
@@ -136,7 +152,7 @@ set linebreak
 set showbreak=+++
 set textwidth=80
 
-" change split direction
+" change split direction, e.g. quickfix window displayed at the bottom
 set splitright
 set splitbelow
 
@@ -232,6 +248,10 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nmap <leader><space> :noh<CR>
 
+" keep selection while indentation change
+vnoremap > >gv
+vnoremap < <gv
+
 " bufer navigation
 nmap <silent> + :bnext<CR>
 nmap <silent> _ :bprev<CR>
@@ -283,7 +303,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " nnoremap <silent> <F3> :NERDTreeToggle<CR>
 " nnoremap <silent> <F2> :NERDTreeFind<CR>
 
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <leader>r :NERDTreeFind<CR>
 
 " vim-rails / vim-projectionist
@@ -309,6 +329,7 @@ let g:coc_global_extensions = [
 \ 'coc-go',
 \ 'coc-html',
 \ 'coc-json',
+\ 'coc-markdownlint',
 \ 'coc-pairs',
 \ 'coc-python',
 \ 'coc-snippets',
@@ -330,17 +351,12 @@ let g:gitgutter_set_sign_backgrounds = 1
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <TAB>
-\ pumvisible() ? coc#_select_confirm() :
-\ coc#expandableOrJumpable() ?
-\ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-\ <SID>check_back_space() ? "\<TAB>" :
-\ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -390,6 +406,9 @@ nmap <leader>f  <Plug>(coc-format)
 xmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>F  <Plug>(coc-format-selected)
 
+" edit snippets
+nmap <leader>S :CocCommand snippets.editSnippets<cr>
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -412,7 +431,10 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" go organize import automatically
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -423,3 +445,23 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 """ Commands
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
+
+""" switch.vim
+nmap <leader>s :Switch<cr>
+
+""" vim-test
+let test#strategy = "dispatch"
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+
+""" Dash support
+nmap <silent> <leader>d :Dash<CR>
+
+""" vim-coffee-script
+let coffee_indent_keep_current = 1
+
+""" vim-move
+let g:move_key_modifier = 'C'
